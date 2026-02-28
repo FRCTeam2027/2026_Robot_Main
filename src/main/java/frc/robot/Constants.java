@@ -6,6 +6,7 @@ package frc.robot;
 
 import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
 import com.ctre.phoenix6.configs.MotorOutputConfigs;
+import com.ctre.phoenix6.configs.Slot0Configs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 //import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.InvertedValue;
@@ -34,9 +35,6 @@ public final class Constants {
     public static final int frontLeft = 3;
     public static final int frontRight = 4;
 
-    public static final int shooterIntakeLeft = 5;
-    public static final int feederRight = 6;
-
     public static final TalonFXConfiguration configs = new TalonFXConfiguration();
 
     public static final CurrentLimitsConfigs currentLimits = new CurrentLimitsConfigs()
@@ -46,5 +44,33 @@ public final class Constants {
     public static final MotorOutputConfigs brakeValues = new MotorOutputConfigs()
                                 .withNeutralMode(NeutralModeValue.Brake)
                                 .withInverted(InvertedValue.Clockwise_Positive);
+  }
+
+  public static class IntakeConstants {
+    public static final int shooterIntakeLeft = 5;
+    public static final int feederRight = 6;
+
+    public static final Slot0Configs PID_CONFIGS = new Slot0Configs()
+                                .withKP(0.0002)
+                                .withKI(0)
+                                .withKD(0);
+                              
+
+
+    public static final TalonFXConfiguration configs = new TalonFXConfiguration()
+                                .withSlot0(PID_CONFIGS);
+    
+    public static final CurrentLimitsConfigs currentLimits = new CurrentLimitsConfigs()
+                                .withStatorCurrentLimit(80)
+                                .withStatorCurrentLimitEnable(true);
+    
+    public static final MotorOutputConfigs brakeValues = new MotorOutputConfigs()
+                                .withNeutralMode(NeutralModeValue.Brake)
+                                .withInverted(InvertedValue.Clockwise_Positive);
+
+    public static final double RPMtoRPS = 1/60.0;
+    public static final double RPStoRPM = 1/RPMtoRPS;
+
+    
   }
 }
