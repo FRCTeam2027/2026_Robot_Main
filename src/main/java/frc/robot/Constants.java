@@ -47,8 +47,8 @@ public final class Constants {
   }
 
   public static class IntakeConstants {
-    public static final int shooterIntakeLeft = 5;
-    public static final int feederRight = 6;
+    public static final int shooterIntakeLeft = 6;
+    public static final int feederRight = 5;
 
     public static final Slot0Configs PID_CONFIGS = new Slot0Configs()
                                 .withKP(0.0002)

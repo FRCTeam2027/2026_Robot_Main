@@ -44,6 +44,7 @@ public class IntakeAndShooterSubsystem extends SubsystemBase {
     feederRight.getConfigurator().apply(currentLimits);
 
     feederRight.getConfigurator().apply(brakeConfigs);
+    shooterIntakeLeft.getConfigurator().apply(brakeConfigs);
 
     velocityRequest = new VelocityVoltage(0);
   }
@@ -56,8 +57,13 @@ public class IntakeAndShooterSubsystem extends SubsystemBase {
   }
 
   public void runShooterPercent(double Percent){
-    shooterIntakeLeft.set(Percent);
+    shooterIntakeLeft.set(-Percent);
     feederRight.set(Percent);
+  }
+
+  public void runIntakePercent(double Percent){
+    shooterIntakeLeft.set(-Percent);
+    feederRight.set(-Percent);
   }
 
   public void runIntakeVelocity(double RPM){
