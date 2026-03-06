@@ -6,7 +6,10 @@ package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.MecanumDriveCommand;
+import frc.robot.commands.ShooterPercentCommand;
+import frc.robot.commands.IntakePercentCommand;
 import frc.robot.subsystems.MecanumDriveSubsystem;
+import frc.robot.subsystems.IntakeAndShooterSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -20,11 +23,15 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private MecanumDriveSubsystem mecanumDriveSubsystem = new MecanumDriveSubsystem();
-
+  private IntakeAndShooterSubsystem intakeAndShooterSubsystem = new IntakeAndShooterSubsystem();
   // Replace with CommandPS4Controller or CommandJoystick if needed
   
   private final CommandXboxController m_driverController =
      new CommandXboxController(OperatorConstants.kDriverControllerPort);
+
+
+  private final CommandXboxController m_operatorController =    
+    new CommandXboxController(OperatorConstants.kOperatorControllerPort);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -49,6 +56,9 @@ public class RobotContainer {
                                               () -> -m_driverController.getRightX(), 
                                               () -> -m_driverController.getLeftX()));
 
+    m_operatorController.a().whileTrue(new IntakePercentCommand(intakeAndShooterSubsystem));
+
+    m_operatorController.b().whileTrue(new ShooterPercentCommand(intakeAndShooterSubsystem));
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
   }
