@@ -7,6 +7,7 @@ package frc.robot;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.MecanumDriveCommand;
 import frc.robot.commands.ShooterPercentCommand;
+import frc.robot.commands.ShooterVelocityCommand;
 import frc.robot.commands.IntakePercentCommand;
 import frc.robot.subsystems.MecanumDriveSubsystem;
 import frc.robot.subsystems.IntakeAndShooterSubsystem;
@@ -59,6 +60,7 @@ public class RobotContainer {
     m_operatorController.a().whileTrue(new IntakePercentCommand(intakeAndShooterSubsystem));
 
     m_operatorController.b().whileTrue(new ShooterPercentCommand(intakeAndShooterSubsystem));
+    m_operatorController.x().whileTrue(new ShooterVelocityCommand(intakeAndShooterSubsystem));
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
   }

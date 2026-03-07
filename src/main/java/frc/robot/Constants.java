@@ -34,6 +34,7 @@ public final class Constants {
     public static final int backLeft = 2;
     public static final int frontLeft = 3;
     public static final int frontRight = 4;
+    public static final int pidgeon2 = 8;
 
     public static final TalonFXConfiguration configs = new TalonFXConfiguration();
 
@@ -51,9 +52,11 @@ public final class Constants {
     public static final int feederRight = 5;
 
     public static final Slot0Configs PID_CONFIGS = new Slot0Configs()
-                                .withKP(0.0002)
+                                .withKP(0)
                                 .withKI(0)
-                                .withKD(0);
+                                .withKD(0)
+                                .withKV(0.12);
+                                
                               
 
 

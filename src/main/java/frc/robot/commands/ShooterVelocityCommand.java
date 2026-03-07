@@ -8,17 +8,16 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.IntakeAndShooterSubsystem;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class ShooterPercentCommand extends Command {
-  /** Creates a new ShooterPercentCommand. */
+public class ShooterVelocityCommand extends Command {
+  /** Creates a new ShooterVelocityCommand. */
+  private IntakeAndShooterSubsystem intakeAndShooterSubsystem = new IntakeAndShooterSubsystem();
 
-private IntakeAndShooterSubsystem intakeAndShooterSubsystem;
-
-private double percent = 0.7;
-
-  public ShooterPercentCommand(IntakeAndShooterSubsystem intakeAndShooterSubsystem) {
+  private double RPM = 3900;
+  public ShooterVelocityCommand(IntakeAndShooterSubsystem intakeAndShooterSubsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.intakeAndShooterSubsystem = intakeAndShooterSubsystem;
     addRequirements(intakeAndShooterSubsystem);
+
   }
 
   // Called when the command is initially scheduled.
@@ -28,7 +27,7 @@ private double percent = 0.7;
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    intakeAndShooterSubsystem.runShooterPercent(percent);
+    intakeAndShooterSubsystem.runShooterVelocity(RPM);
   }
 
   // Called once the command ends or is interrupted.
