@@ -13,6 +13,7 @@ import frc.robot.Constants.MecanumDriveConstants;
 
 import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
 import com.ctre.phoenix6.configs.MotorOutputConfigs;
+import com.ctre.phoenix6.hardware.Pigeon2;
 import com.ctre.phoenix6.hardware.TalonFX;
 
 public class MecanumDriveSubsystem extends SubsystemBase {
@@ -22,6 +23,8 @@ public class MecanumDriveSubsystem extends SubsystemBase {
 
   private TalonFX backRight = new TalonFX(MecanumDriveConstants.backRight);
   private TalonFX frontRight = new TalonFX(MecanumDriveConstants.frontRight);
+
+  private final Pigeon2 pidgeon2 = new Pigeon2(8);
   
   private final MecanumDrive m_robotDrive = 
                     new MecanumDrive(frontLeft::set, backLeft::set, frontRight::set, backRight::set);
@@ -66,6 +69,8 @@ public class MecanumDriveSubsystem extends SubsystemBase {
   }
 
 public void drive(Double xSpeed, Double ySpeed, Double rotation){
+  
+  
   m_robotDrive.driveCartesian(xSpeed, ySpeed, rotation);
  }
 
