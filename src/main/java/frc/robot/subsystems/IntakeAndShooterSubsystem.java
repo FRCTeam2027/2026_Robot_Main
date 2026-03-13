@@ -51,9 +51,9 @@ public class IntakeAndShooterSubsystem extends SubsystemBase {
 
   // functions for running motors
 
-  public void runShooterVelocity(double RPM){
-    shooterIntakeLeft.setControl(velocityRequest.withVelocity(RPM * IntakeConstants.RPMtoRPS));
-    feederRight.setControl(velocityRequest.withVelocity(RPM * IntakeConstants.RPMtoRPS));
+  public void runShooterVelocity(double RPS){
+    shooterIntakeLeft.setControl(velocityRequest.withVelocity(-RPS*IntakeConstants.RPMtoRPS));
+    feederRight.setControl(velocityRequest.withVelocity(RPS*IntakeConstants.RPMtoRPS));
   }
 
   public void runShooterPercent(double Percent){
