@@ -10,6 +10,7 @@ import frc.robot.commands.ShooterPercentCommand;
 import frc.robot.commands.IntakePercentCommand;
 import frc.robot.subsystems.MecanumDriveSubsystem;
 import frc.robot.subsystems.IntakeAndShooterSubsystem;
+import frc.robot.subsystems.LimelightSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -24,6 +25,7 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private MecanumDriveSubsystem mecanumDriveSubsystem = new MecanumDriveSubsystem();
   private IntakeAndShooterSubsystem intakeAndShooterSubsystem = new IntakeAndShooterSubsystem();
+  private LimelightSubsystem limelightSubsystem = new LimelightSubsystem();
   // Replace with CommandPS4Controller or CommandJoystick if needed
   
   private final CommandXboxController m_driverController =
@@ -54,7 +56,12 @@ public class RobotContainer {
     mecanumDriveSubsystem.setDefaultCommand(new MecanumDriveCommand(mecanumDriveSubsystem, 
                                               () -> -m_driverController.getLeftY(),
                                               () -> -m_driverController.getRightX(), 
-                                              () -> -m_driverController.getLeftX()));
+                                              () -> -m_driverController.getLeftX(),
+                                              () -> limelightSubsystem.getHeadingCorrection(),
+                                              () -> limelightSubsystem.getDistanceCorrection(),
+
+                                              // CHANGE THIS TO WHATEVER BUTTON YOU WANT TO USE FOR TARGETTING
+                                              () -> m_driverController.rightBumper().getAsBoolean()));
 
     m_operatorController.a().whileTrue(new IntakePercentCommand(intakeAndShooterSubsystem));
 
