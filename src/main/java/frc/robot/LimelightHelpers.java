@@ -27,6 +27,7 @@ import com.fasterxml.jackson.annotation.JsonFormat.Shape;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.concurrent.ConcurrentHashMap;
 import edu.wpi.first.net.PortForwarder;
@@ -1903,9 +1904,12 @@ public class LimelightHelpers {
             if (jsonString == null || jsonString.isEmpty() || jsonString.isBlank()) {
                 results.error = "lljson error: empty json";
             } else {
-                results = mapper.readValue(jsonString, LimelightResults.class);
-                if (results.imuResults != null) {
-                    results.imuResults.parseDataArray();
+                JsonNode root = mapper.readTree(jsonString);
+                JsonNode resultsNode = root.get("Results");
+                if (resultsNode != null) {
+                    results = mapper.treeToValue(resultsNode, LimelightResults.class);
+                } else {
+                    results.error = "lljson error: 'Results' node not found in json";
                 }
             }
         } catch (JsonProcessingException e) {
