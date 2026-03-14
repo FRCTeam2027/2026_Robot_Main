@@ -76,7 +76,7 @@ public final class Constants {
   }
 
   public static class LimelightConstants {
-    public static final String name = "";
+    public static final String name = "limelight-whsrd";
 
     // Set this to max control speed to the robot
     // haha 0.3
@@ -87,7 +87,7 @@ public final class Constants {
 
     // adjust this for stricter or looser targeting. 0.5 is a good starting point, 
     // but you might want to adjust it based on your testing.
-    public static final double minConfidence = 0.5;
+    public static final double minConfidence = 0;
 
 
     // Derived from april tag field layout, may need to be adjusted based on 

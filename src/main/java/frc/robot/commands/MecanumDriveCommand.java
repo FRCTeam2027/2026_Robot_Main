@@ -66,7 +66,7 @@ public class MecanumDriveCommand extends Command {
     if(targettingButtonPressed.getAsBoolean()) {
       // xTargetValue is the angle correction, yTargetValue is the distance correction. 
       // NOTE: This might be totally bogus and you might need to adjust the signs and coefficients based on testing
-      mecanumDriveSubsystem.drive(0.0, yTargetValue, xTargetValue);
+      mecanumDriveSubsystem.drive(0.0, 0.0, xTargetValue);
     } else {
       // If the targetting button isn't pressed, we should just drive based on the joystick inputs
       mecanumDriveSubsystem.drive(xSpeedDeadband, ySpeedDeadband, rotationDeadband);

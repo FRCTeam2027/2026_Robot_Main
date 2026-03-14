@@ -12,6 +12,7 @@ import frc.robot.commands.IntakePercentCommand;
 import frc.robot.subsystems.MecanumDriveSubsystem;
 import frc.robot.subsystems.IntakeAndShooterSubsystem;
 import frc.robot.subsystems.LimelightSubsystem;
+import edu.wpi.first.wpilibj.DataLogManager;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -40,6 +41,8 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure the trigger bindings
     configureBindings();
+
+    DataLogManager.start();
   }
 
   /**
@@ -54,6 +57,8 @@ public class RobotContainer {
   private void configureBindings() {
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
     // If controllers are inverted, just put - in front of the m_driveController
+    
+    //Driver Controls
     mecanumDriveSubsystem.setDefaultCommand(new MecanumDriveCommand(mecanumDriveSubsystem, 
                                               () -> -m_driverController.getLeftY(),
                                               () -> -m_driverController.getRightX(), 
@@ -64,10 +69,11 @@ public class RobotContainer {
                                               // CHANGE THIS TO WHATEVER BUTTON YOU WANT TO USE FOR TARGETTING
                                               () -> m_driverController.rightBumper().getAsBoolean()));
 
-    m_operatorController.a().whileTrue(new IntakePercentCommand(intakeAndShooterSubsystem));
 
-    m_operatorController.b().whileTrue(new ShooterPercentCommand(intakeAndShooterSubsystem));
-    m_operatorController.x().whileTrue(new ShooterVelocityCommand(intakeAndShooterSubsystem));
+
+    //Operator Controls
+    m_operatorController.a().whileTrue(new IntakePercentCommand(intakeAndShooterSubsystem));
+    m_operatorController.b().whileTrue(new ShooterVelocityCommand(intakeAndShooterSubsystem));
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
   }
