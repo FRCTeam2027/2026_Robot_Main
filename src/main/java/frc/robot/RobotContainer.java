@@ -63,8 +63,9 @@ public class RobotContainer {
                                               () -> -m_driverController.getLeftY(),
                                               () -> -m_driverController.getRightX(), 
                                               () -> -m_driverController.getLeftX(),
-                                              () -> limelightSubsystem.getHeadingCorrection(),
-                                              () -> limelightSubsystem.getDistanceCorrection(),
+                                              () -> limelightSubsystem.getXTarget(),
+                                              () -> limelightSubsystem.getYTarget(),
+                                              () -> limelightSubsystem.getRotationTarget(),
 
                                               // CHANGE THIS TO WHATEVER BUTTON YOU WANT TO USE FOR TARGETTING
                                               () -> m_driverController.rightBumper().getAsBoolean()));

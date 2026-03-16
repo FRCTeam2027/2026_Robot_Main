@@ -81,13 +81,32 @@ public final class Constants {
     // Set this to max control speed to the robot
     // haha 0.3
     public static final double maxSpeedValue = 0.3;
+    
+    public static final double maxRotationSpeedValue = 0.3;
 
-    public static final double headingCoefficient = 0.1;
-    public static final double distanceCoefficient = 0.1;
+    // Used to normalize tx and ty values from limelight, which are in degrees. 
+    public static final double MAX_TX_VALUE = 29.8;
+    public static final double MAX_TY_VALUE = 24.85;
 
-    // adjust this for stricter or looser targeting. 0.5 is a good starting point, 
-    // but you might want to adjust it based on your testing.
-    public static final double minConfidence = 0;
+
+    // TARGET OFFSET VALUES
+    // Trying out using the target in Camera Space to position the robot where we want
+    // Adjust these values based on testing
+    
+
+    // Positive value will position the robot further to the right of the target,
+    // negative value will position it to the left.
+    public static final double xTargetOffset = 0.0;
+
+    // How far(in meters) from the robot to place the robot in front of the target
+    // Always positive, since we want to be in front of the target, not behind it.
+    public static final double zTargetOffset = 1.0;
+
+    // 0 is looking directly at the target, 
+    // positive values will position the robot further clockwise, negative values will position it further counterclockwise.
+    public static double targetRotationOffset = 0.0;
+
+    // END TARGET OFFSET VALUES
 
 
     // Derived from april tag field layout, may need to be adjusted based on 

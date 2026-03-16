@@ -29,12 +29,14 @@ public class MecanumDriveCommand extends Command {
   // These will be used to adjust the speed of the robot based on the distance from the target.
   private DoubleSupplier xTarget;
   private DoubleSupplier yTarget;
+  private DoubleSupplier rotationTarget;
   private BooleanSupplier targettingButtonPressed;
 
   //DoubleSuppliers give constant updates, regular doubles do not
   public MecanumDriveCommand(MecanumDriveSubsystem mecanumDrive, 
     DoubleSupplier xSpeed, DoubleSupplier ySpeed, DoubleSupplier rotation,
-    DoubleSupplier xTarget, DoubleSupplier yTarget, BooleanSupplier targettingButtonPressed) {
+    DoubleSupplier xTarget, DoubleSupplier yTarget, DoubleSupplier rotationTarget,
+    BooleanSupplier targettingButtonPressed) {
     // Use addRequirements() here to declare subsystem dependencies.
     mecanumDriveSubsystem = mecanumDrive;
 
@@ -43,6 +45,7 @@ public class MecanumDriveCommand extends Command {
     this.rotation = rotation;
     this.xTarget = xTarget;
     this.yTarget = yTarget;
+    this.rotationTarget = rotationTarget;
     this.targettingButtonPressed = targettingButtonPressed;
 
     addRequirements(mecanumDriveSubsystem);
@@ -62,11 +65,12 @@ public class MecanumDriveCommand extends Command {
 
     double xTargetValue = xTarget.getAsDouble();
     double yTargetValue = yTarget.getAsDouble();
+    double rotationTargetValue = rotationTarget.getAsDouble();
 
     if(targettingButtonPressed.getAsBoolean()) {
       // xTargetValue is the angle correction, yTargetValue is the distance correction. 
       // NOTE: This might be totally bogus and you might need to adjust the signs and coefficients based on testing
-      mecanumDriveSubsystem.drive(0.0, 0.0, xTargetValue);
+      mecanumDriveSubsystem.drive(xTargetValue, yTargetValue, rotationTargetValue);
     } else {
       // If the targetting button isn't pressed, we should just drive based on the joystick inputs
       mecanumDriveSubsystem.drive(xSpeedDeadband, ySpeedDeadband, rotationDeadband);
