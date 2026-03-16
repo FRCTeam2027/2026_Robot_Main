@@ -39,12 +39,8 @@ public class MecanumDriveSubsystem extends SubsystemBase {
     backRight.getConfigurator().apply(MecanumDriveConstants.configs);
     
     //sets the current limits for the motors
-    applyCurrentLimits();
-
-    
+    applyCurrentLimits();   
   }
-
-
 
   public void applyCurrentLimits(){
 
@@ -64,22 +60,18 @@ public class MecanumDriveSubsystem extends SubsystemBase {
 
     backRight.getConfigurator().apply(brakeConfigs);
     frontLeft.getConfigurator().apply(brakeConfigs);
-
-
   }
 
-public void drive(Double xSpeed, Double ySpeed, Double rotation){
-  
-  
-  m_robotDrive.driveCartesian(xSpeed, ySpeed, rotation);
- }
+  public void drive(Double xSpeed, Double ySpeed, Double rotation){
+    m_robotDrive.driveCartesian(xSpeed, ySpeed, rotation);
+  }
 
- public void stop(){
-  frontLeft.stopMotor();
-  backLeft.stopMotor();
-  frontRight.stopMotor();
-  backRight.stopMotor();
- }
+  public void stop(){
+    frontLeft.stopMotor();
+    backLeft.stopMotor();
+    frontRight.stopMotor();
+    backRight.stopMotor();
+  }
 
   @Override
   public void periodic() {

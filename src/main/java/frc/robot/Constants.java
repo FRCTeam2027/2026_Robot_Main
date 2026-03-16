@@ -72,8 +72,51 @@ public final class Constants {
                                 .withInverted(InvertedValue.Clockwise_Positive);
 
     public static final double RPMtoRPS = 1/60.0;
-    public static final double RPStoRPM = 1/RPMtoRPS;
+    public static final double RPStoRPM = 1/RPMtoRPS;    
+  }
 
+  public static class LimelightConstants {
+    public static final String name = "limelight-whsrd";
+
+    // Set this to max control speed to the robot
+    // haha 0.3
+    public static final double maxSpeedValue = 0.3;
     
+    public static final double maxRotationSpeedValue = 0.3;
+
+    // Used to normalize tx and ty values from limelight, which are in degrees. 
+    public static final double MAX_TX_VALUE = 29.8;
+    public static final double MAX_TY_VALUE = 24.85;
+
+
+    // TARGET OFFSET VALUES
+    // Trying out using the target in Camera Space to position the robot where we want
+    // Adjust these values based on testing
+    
+
+    // Positive value will position the robot further to the right of the target,
+    // negative value will position it to the left.
+    public static final double xTargetOffset = 0.0;
+
+    // How far(in meters) from the robot to place the robot in front of the target
+    // Always positive, since we want to be in front of the target, not behind it.
+    public static final double zTargetOffset = 1.0;
+
+    // 0 is looking directly at the target, 
+    // positive values will position the robot further clockwise, negative values will position it further counterclockwise.
+    public static double targetRotationOffset = 0.0;
+
+    // END TARGET OFFSET VALUES
+
+
+    // Derived from april tag field layout, may need to be adjusted based on 
+    // actual field setup and which tags you want to target.
+    public static final int[] goalAprilTagIds = new int[] {
+      3, 4, 9, 10, 19, 20, 25, 26
+    };
+
+    public static final int[] climbAprilTagIds = new int[] {
+      15, 16,  31, 32
+    };
   }
 }

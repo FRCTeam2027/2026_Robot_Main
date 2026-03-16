@@ -11,6 +11,8 @@ import frc.robot.commands.ShooterVelocityCommand;
 import frc.robot.commands.IntakePercentCommand;
 import frc.robot.subsystems.MecanumDriveSubsystem;
 import frc.robot.subsystems.IntakeAndShooterSubsystem;
+import frc.robot.subsystems.LimelightSubsystem;
+import edu.wpi.first.wpilibj.DataLogManager;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -25,6 +27,7 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private MecanumDriveSubsystem mecanumDriveSubsystem = new MecanumDriveSubsystem();
   private IntakeAndShooterSubsystem intakeAndShooterSubsystem = new IntakeAndShooterSubsystem();
+  private LimelightSubsystem limelightSubsystem = new LimelightSubsystem();
   // Replace with CommandPS4Controller or CommandJoystick if needed
   
   private final CommandXboxController m_driverController =
@@ -38,6 +41,8 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure the trigger bindings
     configureBindings();
+
+    DataLogManager.start();
   }
 
   /**
@@ -52,15 +57,24 @@ public class RobotContainer {
   private void configureBindings() {
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
     // If controllers are inverted, just put - in front of the m_driveController
+    
+    //Driver Controls
     mecanumDriveSubsystem.setDefaultCommand(new MecanumDriveCommand(mecanumDriveSubsystem, 
                                               () -> -m_driverController.getLeftY(),
                                               () -> -m_driverController.getRightX(), 
-                                              () -> -m_driverController.getLeftX()));
+                                              () -> -m_driverController.getLeftX(),
+                                              () -> limelightSubsystem.getXTarget(),
+                                              () -> limelightSubsystem.getYTarget(),
+                                              () -> limelightSubsystem.getRotationTarget(),
 
+                                              // CHANGE THIS TO WHATEVER BUTTON YOU WANT TO USE FOR TARGETTING
+                                              () -> m_driverController.rightBumper().getAsBoolean()));
+
+
+
+    //Operator Controls
     m_operatorController.a().whileTrue(new IntakePercentCommand(intakeAndShooterSubsystem));
-
-    m_operatorController.b().whileTrue(new ShooterPercentCommand(intakeAndShooterSubsystem));
-    m_operatorController.x().whileTrue(new ShooterVelocityCommand(intakeAndShooterSubsystem));
+    m_operatorController.b().whileTrue(new ShooterVelocityCommand(intakeAndShooterSubsystem));
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
   }
