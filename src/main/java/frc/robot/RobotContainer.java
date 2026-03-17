@@ -8,8 +8,10 @@ import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.MecanumDriveCommand;
 import frc.robot.commands.ShooterPercentCommand;
 import frc.robot.commands.ShooterVelocityCommand;
+import frc.robot.commands.elevatorRoutineCommand;
 import frc.robot.commands.IntakePercentCommand;
 import frc.robot.subsystems.MecanumDriveSubsystem;
+import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.IntakeAndShooterSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -25,6 +27,7 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private MecanumDriveSubsystem mecanumDriveSubsystem = new MecanumDriveSubsystem();
   private IntakeAndShooterSubsystem intakeAndShooterSubsystem = new IntakeAndShooterSubsystem();
+  private ElevatorSubsystem elevatorSubsystem = new ElevatorSubsystem();
   // Replace with CommandPS4Controller or CommandJoystick if needed
   
   private final CommandXboxController m_driverController =
@@ -61,6 +64,7 @@ public class RobotContainer {
 
     m_operatorController.b().whileTrue(new ShooterPercentCommand(intakeAndShooterSubsystem));
     m_operatorController.x().whileTrue(new ShooterVelocityCommand(intakeAndShooterSubsystem));
+    m_operatorController.y().whileTrue(new elevatorRoutineCommand(elevatorSubsystem));
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
   }
