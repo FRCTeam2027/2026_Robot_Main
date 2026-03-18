@@ -56,9 +56,9 @@ public class RobotContainer {
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
     // If controllers are inverted, just put - in front of the m_driveController
     mecanumDriveSubsystem.setDefaultCommand(new MecanumDriveCommand(mecanumDriveSubsystem, 
-                                              () -> -m_driverController.getLeftY(),
-                                              () -> -m_driverController.getRightX(), 
-                                              () -> -m_driverController.getLeftX()));
+                                              () -> -m_driverController.getLeftY() * 0.5,
+                                              () -> -m_driverController.getRightX() * 0.5, 
+                                              () -> -m_driverController.getLeftX() * 0.5));
 
     m_operatorController.a().whileTrue(new IntakePercentCommand(intakeAndShooterSubsystem));
 

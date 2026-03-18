@@ -10,8 +10,8 @@ import frc.robot.subsystems.ElevatorSubsystem;
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 public class elevatorRoutineCommand extends Command {
   /** Creates a new elevatorRoutineCommand. */
-  private ElevatorSubsystem elevatorSubsystem = new ElevatorSubsystem();
-  private double RPM = 100;
+  private ElevatorSubsystem elevatorSubsystem;
+  private double RPM = 400;
 
 
   public elevatorRoutineCommand(ElevatorSubsystem elevatorSubsystem) {
@@ -27,7 +27,7 @@ public class elevatorRoutineCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    elevatorSubsystem.elevatorControl(RPM);
+    elevatorSubsystem.elevatorRoutine(RPM);
   }
 
   // Called once the command ends or is interrupted.

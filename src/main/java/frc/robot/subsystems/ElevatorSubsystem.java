@@ -8,6 +8,8 @@ import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
 import com.ctre.phoenix6.configs.MotionMagicConfigs;
 import com.ctre.phoenix6.configs.MotorOutputConfigs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
+import com.ctre.phoenix6.controls.MotionMagicVelocityVoltage;
+import com.ctre.phoenix6.controls.PositionVoltage;
 import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.hardware.CANcoder;
 import com.ctre.phoenix6.hardware.TalonFX;
@@ -24,9 +26,11 @@ public class ElevatorSubsystem extends SubsystemBase {
   private TalonFX elevatorMotor = new TalonFX(ElevatorConstants.elevatorMotor);
   private TalonFX clawAssist = new TalonFX(ElevatorConstants.clawAssist);
   private CANcoder clawEncoder = new CANcoder(ElevatorConstants.clawEncoder);
-  private DigitalInput magneticSwitch = new DigitalInput(ElevatorConstants.magneticSwitch);
+  DigitalInput topMagneticSwitch = new DigitalInput(ElevatorConstants.topMagneticSwitch);
+  DigitalInput bottomBumperSwitch = new DigitalInput(ElevatorConstants.bottomBumperSwitch);
   private VelocityVoltage velocityRequest;
-  
+  private MotionMagicVelocityVoltage motionMagicVelocityRequest;
+  private PositionVoltage positionRequest;
 
   public ElevatorSubsystem(){
     elevatorMotor.getConfigurator().apply(ElevatorConstants.configs);
@@ -57,6 +61,8 @@ public class ElevatorSubsystem extends SubsystemBase {
     clawAssist.getConfigurator().apply(motionMagicConfigs);
 
     velocityRequest = new VelocityVoltage(0);
+    motionMagicVelocityRequest = new MotionMagicVelocityVoltage(0);
+    positionRequest = new PositionVoltage(0);
   }
   @Override
   public void periodic() {
@@ -66,9 +72,22 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   //negative returns to the up position, positive moves the elevator down
   public void elevatorControl(double RPS){
+      
+    if(topMagneticSwitch.get() == false && RPS > 0){
+      stop();
+    } else {
       elevatorMotor.setControl(velocityRequest.withVelocity(RPS*IntakeConstants.RPMtoRPS));
+    }
   }
-  
+
+  public void elevatorRoutine(double RPS){
+    while(topMagneticSwitch.get() == true){
+      elevatorControl(RPS);
+    } 
+
+    elevatorMotor.setPosition(0.0);
+    elevatorMotor.setControl(positionRequest.withPosition(-230));
+  }
   public void stop(){
     elevatorMotor.stopMotor();
     clawAssist.stopMotor();

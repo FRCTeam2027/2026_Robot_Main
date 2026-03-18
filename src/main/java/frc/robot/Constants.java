@@ -79,7 +79,8 @@ public final class Constants {
     public static final int elevatorMotor = 7;
     public static final int clawAssist = 8;
     public static final int clawEncoder = 10;
-    public static final int magneticSwitch = 0;
+    public static final int topMagneticSwitch = 0;
+    public static final int bottomBumperSwitch = 1;
 
     public static final Slot0Configs PID_CONFIGS = new Slot0Configs()
                                 .withKP(0)
